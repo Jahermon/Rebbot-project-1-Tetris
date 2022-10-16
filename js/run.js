@@ -13,8 +13,6 @@ var margenSuperior = 4;
 
 
 // este es el tablero donde el juego se ejecuta un array bidimensional de //12*17  10*16 donde todo lo distinto a 0 será colisión.
-
-
 var tablero = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -225,6 +223,7 @@ var fichaGrafico = [
   ]
 ];
 
+//colores
 var rojo = '#da0000';
 var verde = '#00e510';
 var azul = '#0046f7';
@@ -297,3 +296,6 @@ function principal() {
   borrarCanvas()
   console.log("test")
 }
+
+//metodo muy intesante para renderizar cuadrados en canvas
+//https://developer.mozilla.org/es/docs/Web/API/CanvasRenderingContext2D/fillRect
