@@ -13,6 +13,23 @@ var Classpieza =  function(){
     this.x =0;
     this.y =0;
     console.log('pieza creada')
+
+    this.rotar = function(){
+        console.log('rotando')
+    }
+    
+    this.abajo = function(){
+        console.log('moviendo abajo')
+    }
+    
+    this.izquierda = function(){
+        console.log('moviendo izquierda')
+    }
+    
+    this.derecha = function(){
+        console.log('moviendo derecha')
+    }
+    
 }
 
 //establecemos el ancho y alto del canvas, lo asigamos por variables por si tenemos que modificar en un futuro
@@ -23,16 +40,16 @@ pieza = new Classpieza();
 
 document.addEventListener('keydown',function(tecla){
     if(tecla.keyCode === 38){
-      console.log('Soy flecha arriba!')
+      pieza.rotar()
     }
     if(tecla.keyCode === 37){
-      console.log('Soy flecha izquierda!')
+      pieza.izquierda()
     }
     if(tecla.keyCode === 40){
-      console.log('Soy flecha abajo!')
+      pieza.abajo()
     }
     if(tecla.keyCode === 39){
-      console.log('Soy flecha derecha!')
+      pieza.derecha()
     }
   })
   
