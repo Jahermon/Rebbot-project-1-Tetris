@@ -15,3 +15,20 @@ canvas.height = altoCanvas;
 
 
 
+setInterval(function(){
+    principal();
+
+    //el bucle se ejecuta 50 veces por segundo 
+},1000/fps)
+
+//borra el contenido del canvas seteando el tamaño, así tenemos generamos la animacion dentro del interval y tenemos control total
+function borrarCanvas(){
+    canvas.width = anchoCanvas;
+    canvas.height = altoCanvas;
+}
+
+//funcion principal del juego
+function principal(){
+    borrarCanvas()
+    console.log("test")
+}
