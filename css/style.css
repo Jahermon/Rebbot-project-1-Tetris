@@ -1,5 +1,16 @@
-canvas{
-    border: 1px solid #000000;
-    margin-left: 260px;
-    margin-top: 120px;
+
+.tablero {
+    margin-top: 35px;
+    margin-left: 100px;
+    
+}
+
+td{
+    background-color: aquamarine;
+    height: 15px;
+    width: 15px;
+}
+
+.pieza{
+    background-color: blue;
 }

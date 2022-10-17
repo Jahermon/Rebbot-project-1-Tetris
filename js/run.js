@@ -1,6 +1,9 @@
 var anchoTablero = 16;
 var altoTablero = 30;
-var fps = 50
+var fps = 30
+
+var filasTabla = 30
+var columnasTabla = 16
 
 var tablero = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -44,15 +47,15 @@ var fichaGrafico = [
     // [0] cuadrados
     [
       [0, 0, 0, 0],
+      [0, 0, 0, 0],
       [0, 1, 1, 0],
-      [0, 1, 1, 0],
-      [0, 0, 0, 0]
+      [0, 1, 1, 0]
     ],
     [
       [0, 0, 0, 0],
+      [0, 0, 0, 0],
       [0, 1, 1, 0],
-      [0, 1, 1, 0],
-      [0, 0, 0, 0]
+      [0, 1, 1, 0]
     ],
     [
       [0, 0, 0, 0],
@@ -225,12 +228,9 @@ var fichaGrafico = [
 ];
 
 var cuadrado = [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 1, 1, 0],
-    [0, 1, 1, 0]
+    [1, 1],
+    [1, 1] 
 ]
-
 
 //colores
 var rojo = '#da0000';
@@ -240,16 +240,32 @@ var amarillo = '#d2ff00';
 var naranja = '#ff8a00';
 var rosa = '#ff52e0';
 var azulClaro = '#52fff5';
-var gris = ''
 
+
+
+function crearTabla(){
+  for(let i = 0; i < filasTabla; i++){
+    let filaActual = document.getElementById('tablero').insertRow(i)
+    filaActual.classList.add(`row${i}`)
+    for(let j = 0; j < columnasTabla; j++ ){
+      let celda = filaActual.insertCell(j)
+      //celda.innerHTML = `10`
+      celda.classList.add(`col${j}`)
+      celda.classList.add(`celda`)
+      celda.setAttribute("colspan",0)
+    }
+  }
+}
+
+function updatePiece (){
+
+}
 
 var Classpieza = function () {
 
-  this.x = 1;
-  this.y = 1;
-  this.angulo = 0
-  this.tipo = 1
-
+  this.x = 5;
+  this.y = 5;
+  
   console.log('pieza creada')
 
   this.rotar = function () {
@@ -257,26 +273,29 @@ var Classpieza = function () {
   }
 
   this.abajo = function () {
-    posicionY++
-    console.log(posicionY)
+    this.y++
+    console.log(this.y)
+    
   }
 
   this.izquierda = function () {
-    posicionX--
-    console.log(posicionX)
+    this.x--
+    
   }
 
   this.derecha = function () {
-    posicionX++
-    console.log(posicionX)
+    this.x++
   }
 
+  this.drawPiece = function(){
+    var pieza = document.querySelector(`.row${this.y} .col${this.x}`)
+      pieza.classList.add('pieza')
+      
+  }
 }
-
-
-
-
 pieza = new Classpieza();
+
+crearTabla()
 
 document.addEventListener('keydown', function (tecla) {
   if (tecla.keyCode === 38) {
@@ -293,21 +312,15 @@ document.addEventListener('keydown', function (tecla) {
   }
 })
 
-
 setInterval(function () {
   principal();
 
   //el bucle se ejecuta 50 veces por segundo 
 }, 1000 / fps);
 
-//borra el contenido del canvas seteando el tamaño, así tenemos generamos la animacion dentro del interval y tenemos control total
-
 //funcion principal del juego
 function principal() {
-
-  dibujarTablero()
-  dibujarPieza()
-
+  pieza.drawPiece();
 }
 
 
