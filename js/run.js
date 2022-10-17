@@ -1,6 +1,6 @@
 var anchoTablero = 16;
 var altoTablero = 30;
-var fps = 30
+var fps = 1
 
 var filasTabla = 26
 var columnasTabla = 16
@@ -16,6 +16,9 @@ var naranja = '#ff8a00';
 var rosa = '#ff52e0';
 var azulClaro = '#52fff5';
 
+var numeroAleatorio = Math.floor(Math.random() *5)
+console.log(numeroAleatorio)
+
 function crearTabla() {
   for (let i = 0; i < filasTabla; i++) {
     let filaActual = document.getElementById('tablero').insertRow(i)
@@ -29,6 +32,8 @@ function crearTabla() {
 }
 
 var Classpieza = function () {
+
+
 
   var piezas = [
     {
@@ -46,35 +51,59 @@ var Classpieza = function () {
       numero: 3,
       estrutura: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 2 }]
     },
+    {
+      pieza: "T",
+      numero: 4,
+      estrutura: [{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 2, y: 1 }]
+    },
+    {
+      pieza: "L",
+      numero: 5,
+      estrutura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 3 }]
+    },
   ]
 
-  this.x = 4;
-  this.y = 4;
 
   console.log('pieza creada')
   this.rotar = function () {
 
   }
 
-  this.abajo = function () {
-    this.y++
-    console.log(this.y)
-
+  this.abajo = function (numero) {
+    piezas.forEach(e => {
+      if (e.numero === numero) {
+        e.estrutura.forEach(e => {
+          var pieza = document.querySelector(`.row${e.y++} .col${e.x}`)
+          pieza.classList.add('pieza')
+          console.log("movimiento") })
+      }
+    })
   }
 
-  this.izquierda = function () {
-    this.x--
-
+  this.izquierda = function (numero) {
+    piezas.forEach(e => {
+      if (e.numero === numero) {
+        e.estrutura.forEach(e => {
+          var pieza = document.querySelector(`.row${e.y} .col${e.x--}`)
+          pieza.classList.add('pieza')
+          console.log("movimiento") })
+      }
+    })
+    
   }
 
-  this.derecha = function () {
-    this.x++
+  this.derecha = function (numero) {
+    piezas.forEach(e => {
+      //if (e.numero === numero) {
+        e.estrutura.forEach(e => {
+          var pieza = document.querySelector(`.row${e.y} .col${e.x++}`)
+          pieza.classList.add('pieza')
+          console.log("movimiento") })
+      //}
+    })
   }
 
-  this.drawPiece = function () {
-    var pieza = document.querySelector(`.row${this.y} .col${this.x}`)
-    pieza.classList.add('pieza')
-  }
+  
   this.updatePiece = function () {
     var pieza = document.querySelectorAll('.pieza')
     pieza.forEach(function (elem) {
@@ -87,8 +116,7 @@ var Classpieza = function () {
         e.estrutura.forEach(e => {
           var pieza = document.querySelector(`.row${e.y} .col${e.x}`)
           pieza.classList.add('pieza')
-          console.log(pieza)
-        })
+                 })
       }
     })
   }
@@ -103,10 +131,10 @@ document.addEventListener('keydown', function (tecla) {
     pieza.rotar()
   }
   if (tecla.keyCode === 37) {
-    pieza.izquierda()
+    pieza.izquierda(5)
   }
   if (tecla.keyCode === 40) {
-    pieza.abajo()
+    pieza.abajo(5)
   }
   if (tecla.keyCode === 39) {
     pieza.derecha()
@@ -122,7 +150,7 @@ setInterval(function () {
 //funcion principal del juego
 function principal() {
   pieza.updatePiece()
-  pieza.pintarPiezas(3)
+  pieza.pintarPiezas(4)
 
 }
 
