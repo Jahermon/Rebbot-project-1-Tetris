@@ -1,6 +1,6 @@
 var anchoTablero = 16;
 var altoTablero = 30;
-var fps = 1
+var fps = 10
 
 var filasTabla = 26
 var columnasTabla = 16
@@ -16,7 +16,7 @@ var naranja = '#ff8a00';
 var rosa = '#ff52e0';
 var azulClaro = '#52fff5';
 
-var numeroAleatorio = Math.floor(Math.random() *5)
+var numeroAleatorio = Math.floor(Math.random() *7)
 console.log(numeroAleatorio)
 
 function crearTabla() {
@@ -32,24 +32,27 @@ function crearTabla() {
 }
 
 var Classpieza = function () {
-
-
-
+  
   var piezas = [
     {
       pieza: "O",
-      numero: 1,
+      numero: 0,
       estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 1 }, { x: 2, y: 2 }]
     },
     {
       pieza: "I",
-      numero: 2,
+      numero: 1,
       estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 1, y: 3 }, { x: 1, y: 4 }]
     },
     {
       pieza: "Z",
-      numero: 3,
+      numero: 2,
       estrutura: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 2 }]
+    },
+    {
+      pieza: "S",
+      numero: 3,
+      estrutura: [{ x: 3, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 1, y: 2 }]
     },
     {
       pieza: "T",
@@ -61,14 +64,53 @@ var Classpieza = function () {
       numero: 5,
       estrutura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 3 }]
     },
+    {
+      pieza: "J",
+      numero: 6,
+      estrutura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 1, y: 3 }]
+    },
   ]
-
-
-  console.log('pieza creada')
+  /*var piezas = [
+    {
+      pieza: "O",
+      numero: 0,
+      estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 1 }, { x: 2, y: 2 }]
+    },
+    {
+      pieza: "I",
+      numero: 1,
+      estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 1, y: 3 }, { x: 1, y: 4 }]
+    },
+    {
+      pieza: "Z",
+      numero: 2,
+      estrutura: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 2 }]
+    },
+    {
+      pieza: "S",
+      numero: 3,
+      estrutura: [{ x: 3, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 1, y: 2 }]
+    },
+    {
+      pieza: "T",
+      numero: 4,
+      estrutura: [{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 2, y: 1 }]
+    },
+    {
+      pieza: "L",
+      numero: 5,
+      estrutura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 3 }]
+    },
+    {
+      pieza: "J",
+      numero: 6,
+      estrutura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 1, y: 3 }]
+    },
+  ]*/
+  
   this.rotar = function () {
-
+    console.log("arriba")
   }
-
   this.abajo = function (numero) {
     piezas.forEach(e => {
       if (e.numero === numero) {
@@ -94,12 +136,12 @@ var Classpieza = function () {
 
   this.derecha = function (numero) {
     piezas.forEach(e => {
-      //if (e.numero === numero) {
+      if (e.numero === numero) {
         e.estrutura.forEach(e => {
           var pieza = document.querySelector(`.row${e.y} .col${e.x++}`)
           pieza.classList.add('pieza')
           console.log("movimiento") })
-      //}
+      }
     })
   }
 
@@ -131,13 +173,13 @@ document.addEventListener('keydown', function (tecla) {
     pieza.rotar()
   }
   if (tecla.keyCode === 37) {
-    pieza.izquierda(5)
+    pieza.izquierda(numeroAleatorio)
   }
   if (tecla.keyCode === 40) {
-    pieza.abajo(5)
+    pieza.abajo(numeroAleatorio)
   }
   if (tecla.keyCode === 39) {
-    pieza.derecha()
+    pieza.derecha(numeroAleatorio)
   }
 })
 
@@ -150,7 +192,7 @@ setInterval(function () {
 //funcion principal del juego
 function principal() {
   pieza.updatePiece()
-  pieza.pintarPiezas(4)
+  pieza.pintarPiezas(numeroAleatorio)
 
 }
 
