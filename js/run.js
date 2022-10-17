@@ -17,7 +17,7 @@ var rosa = '#ff52e0';
 var azulClaro = '#52fff5';
 
 var numeroAleatorio = Math.floor(Math.random() *7)
-console.log(numeroAleatorio)
+
 
 function crearTabla() {
   for (let i = 0; i < filasTabla; i++) {
