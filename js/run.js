@@ -3,38 +3,54 @@ var canvas = document.getElementById('canvas');
 //especificamos que es un entorno 2d y eso no da metodos para pintar o dibujar elementos
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
 var contexto = canvas.getContext('2d')
-var anchoTablero = 10;
-var altoTablero = 20;
-var altoFicha = 40;
-var anchoFicha = 40;
-var anchoCanvas = 400;
-var altoCanvas = 640;
+var anchoTablero = 16;
+var altoTablero = 29;
+var altoFicha = 30;
+var anchoFicha = 30;
+var anchoCanvas = 420;
+var altoCanvas = 750;
 var margenSuperior = 4;
+var fps = 50
 
+
+//metodo muy intesante para renderizar cuadrados en canvas
+//https://developer.mozilla.org/es/docs/Web/API/CanvasRenderingContext2D/fillRect
 
 // este es el tablero donde el juego se ejecuta un array bidimensional de //12*17  10*16 donde todo lo distinto a 0 será colisión.
 var tablero = [
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  // Es arriba es zona muerta donde se genera la pieza.
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+
+];
 
 //cada una de las fichas, son 7 fichas con 4 angulos distintos representadas en un array de 4 dimensiones
 //
@@ -65,32 +81,32 @@ var fichaGrafico = [
       [0, 1, 1, 0],
       [0, 0, 0, 0]
     ]],
-    
+
   [ // [1] rectangulo v1
     [
-    [0, 0, 0, 0],
-    [2, 2, 2, 2],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
-  ],
-  [
-    [0, 0, 2, 0],
-    [0, 0, 2, 0],
-    [0, 0, 2, 0],
-    [0, 0, 2, 0]
-  ],
-  [
-    [0, 0, 0, 0],
-    [2, 2, 2, 2],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
-  ],
-  [
-    [0, 0, 0, 0],
-    [2, 2, 2, 2],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
-  ]],
+      [0, 0, 0, 0],
+      [2, 2, 2, 2],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0]
+    ],
+    [
+      [0, 0, 2, 0],
+      [0, 0, 2, 0],
+      [0, 0, 2, 0],
+      [0, 0, 2, 0]
+    ],
+    [
+      [0, 0, 0, 0],
+      [2, 2, 2, 2],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0]
+    ],
+    [
+      [0, 0, 0, 0],
+      [2, 2, 2, 2],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0]
+    ]],
   [//[2] zeta v1
     [
       [0, 0, 0, 0],
@@ -231,11 +247,15 @@ var amarillo = '#d2ff00';
 var naranja = '#ff8a00';
 var rosa = '#ff52e0';
 var azulClaro = '#52fff5';
+var gris = ''
 
 
 var Classpieza = function () {
-  this.x = 0;
-  this.y = 0;
+  this.x = 2;
+  this.y = 2;
+  this.angulo = 0
+  this.tipo = 1
+
   console.log('pieza creada')
 
   this.rotar = function () {
@@ -254,6 +274,42 @@ var Classpieza = function () {
     console.log('moviendo derecha')
   }
 
+
+}
+
+function dibujarTablero() {
+  //py = pixel en la coordenada y
+  //px = pixel en la coordenada x
+  //recorremos el array multi dimensional 
+  for (var py = margenSuperior; py < altoTablero; py++) {
+    for (var px = 1; px < anchoTablero + 1; px++) {
+      //si es distinto a 0 dibuja el tablero
+      if (tablero[py][px] != 0) {
+        if (tablero[py][px] == 1) {
+          contexto.fillStyle = rojo;
+        }
+        if (tablero[py][px] == 2) {
+          contexto.fillStyle = verde;
+        }
+        if (tablero[py][px] == 3) {
+          contexto.fillStyle = azul;
+        }
+        if (tablero[py][px] == 4) {
+          contexto.fillStyle = amarillo;
+        }
+        if (tablero[py][px] == 5) {
+          contexto.fillStyle = naranja;
+        }
+        if (tablero[py][px] == 6) {
+          contexto.fillStyle = rosa;
+        }
+        if (tablero[py][px] == 7) {
+          contexto.fillStyle = azulClaro;
+        }
+        contexto.fillRect((px - 1) * anchoFicha, (py - margenSuperior) * altoFicha, anchoFicha, altoFicha);
+      }
+    }
+  }
 }
 
 //establecemos el ancho y alto del canvas, lo asigamos por variables por si tenemos que modificar en un futuro
@@ -278,7 +334,6 @@ document.addEventListener('keydown', function (tecla) {
 })
 
 
-
 setInterval(function () {
   principal();
 
@@ -294,8 +349,10 @@ function borrarCanvas() {
 //funcion principal del juego
 function principal() {
   borrarCanvas()
+  dibujarTablero()
   console.log("test")
+  //pieza.dibuja()
+
 }
 
-//metodo muy intesante para renderizar cuadrados en canvas
-//https://developer.mozilla.org/es/docs/Web/API/CanvasRenderingContext2D/fillRect
+
