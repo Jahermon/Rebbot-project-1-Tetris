@@ -28,16 +28,25 @@ function crearTabla() {
   }
 }
 
-
 var Classpieza = function () {
 
   var piezas = [
     {
-      pieza:"l",
-      estrutura: [{x:1,y:1},{x:1,y:2},{x:1,y:3},{x:1,y:4}]
-    }
+      pieza: "O",
+      numero: 1,
+      estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 1 }, { x: 2, y: 2 }]
+    },
+    {
+      pieza: "I",
+      numero: 2,
+      estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 1, y: 3 }, { x: 1, y: 4 }]
+    },
+    {
+      pieza: "Z",
+      numero: 3,
+      estrutura: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 2 }]
+    },
   ]
-
 
   this.x = 4;
   this.y = 4;
@@ -72,19 +81,22 @@ var Classpieza = function () {
       elem.classList.remove('pieza')
     })
   }
-  this.pintarPiezas = function(){
+  this.pintarPiezas = function (numero) {
     piezas.forEach(e => {
-      e.estrutura.forEach(e => {
-        let pieza = document.querySelectorAll(`.row${e.y} .col${e.x}`)
-        console.log(pieza)
-      })
+      if (e.numero === numero) {
+        e.estrutura.forEach(e => {
+          var pieza = document.querySelector(`.row${e.y} .col${e.x}`)
+          pieza.classList.add('pieza')
+          console.log(pieza)
+        })
+      }
     })
   }
 }
-
+crearTabla()
 pieza = new Classpieza();
 pieza.pintarPiezas()
-crearTabla()
+
 
 document.addEventListener('keydown', function (tecla) {
   if (tecla.keyCode === 38) {
@@ -110,7 +122,8 @@ setInterval(function () {
 //funcion principal del juego
 function principal() {
   pieza.updatePiece()
-  pieza.drawPiece();
+  pieza.pintarPiezas(3)
+
 }
 
 
