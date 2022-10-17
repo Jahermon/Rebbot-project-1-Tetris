@@ -2,235 +2,10 @@ var anchoTablero = 16;
 var altoTablero = 30;
 var fps = 30
 
-var filasTabla = 30
+var filasTabla = 26
 var columnasTabla = 16
 
-var tablero = [
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  // Es arriba es zona muerta donde se genera la pieza.
-  [1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-
-];
-
 //cada una de las fichas, son 7 fichas con 4 angulos distintos representadas en un array de 4 dimensiones
-//
-var fichaGrafico = [
-  [
-    // [0] cuadrados
-    [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 1, 1, 0],
-      [0, 1, 1, 0]
-    ],
-    [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 1, 1, 0],
-      [0, 1, 1, 0]
-    ],
-    [
-      [0, 0, 0, 0],
-      [0, 1, 1, 0],
-      [0, 1, 1, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 0, 0],
-      [0, 1, 1, 0],
-      [0, 1, 1, 0],
-      [0, 0, 0, 0]
-    ]],
-
-  [ // [1] rectangulo v1
-    [
-      [0, 0, 0, 0],
-      [2, 2, 2, 2],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 2, 0],
-      [0, 0, 2, 0],
-      [0, 0, 2, 0],
-      [0, 0, 2, 0]
-    ],
-    [
-      [0, 0, 0, 0],
-      [2, 2, 2, 2],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 0, 0],
-      [2, 2, 2, 2],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
-    ]],
-  [//[2] zeta v1
-    [
-      [0, 0, 0, 0],
-      [0, 0, 3, 3],
-      [0, 3, 3, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 3, 0],
-      [0, 0, 3, 3],
-      [0, 0, 0, 3],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 0, 0],
-      [0, 0, 3, 3],
-      [0, 3, 3, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 3, 0],
-      [0, 0, 3, 3],
-      [0, 0, 0, 3],
-      [0, 0, 0, 0]
-    ]
-  ],
-  [ // [3] zeta v2
-    [
-      [0, 0, 0, 0],
-      [0, 4, 4, 0],
-      [0, 0, 4, 4],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 0, 4],
-      [0, 0, 4, 4],
-      [0, 0, 4, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 0, 0],
-      [0, 4, 4, 0],
-      [0, 0, 4, 4],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 0, 4],
-      [0, 0, 4, 4],
-      [0, 0, 4, 0],
-      [0, 0, 0, 0]
-    ]
-  ],
-  [ // [4] L vv1
-    [
-      [0, 0, 0, 0],
-      [0, 5, 5, 5],
-      [0, 5, 0, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 5, 0],
-      [0, 0, 5, 0],
-      [0, 0, 5, 5],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 0, 5],
-      [0, 5, 5, 5],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 5, 5, 0],
-      [0, 0, 5, 0],
-      [0, 0, 5, 0],
-      [0, 0, 0, 0]
-    ]
-  ],
-  [ //[5] l v2
-    [
-      [0, 0, 0, 0],
-      [0, 6, 6, 6],
-      [0, 0, 0, 6],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 6, 6],
-      [0, 0, 6, 0],
-      [0, 0, 6, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 6, 0, 0],
-      [0, 6, 6, 6],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 6, 0],
-      [0, 0, 6, 0],
-      [0, 6, 6, 0],
-      [0, 0, 0, 0]
-    ]
-  ],
-  [ //[6] triangulo
-    [
-      [0, 0, 0, 0],
-      [0, 7, 7, 7],
-      [0, 0, 7, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 7, 0],
-      [0, 0, 7, 7],
-      [0, 0, 7, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 7, 0],
-      [0, 7, 7, 7],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 7, 0],
-      [0, 7, 7, 0],
-      [0, 0, 7, 0],
-      [0, 0, 0, 0]
-    ]
-  ]
-];
-
-var cuadrado = [
-    [1, 1],
-    [1, 1] 
-]
 
 //colores
 var rojo = '#da0000';
@@ -241,60 +16,74 @@ var naranja = '#ff8a00';
 var rosa = '#ff52e0';
 var azulClaro = '#52fff5';
 
-
-
-function crearTabla(){
-  for(let i = 0; i < filasTabla; i++){
+function crearTabla() {
+  for (let i = 0; i < filasTabla; i++) {
     let filaActual = document.getElementById('tablero').insertRow(i)
     filaActual.classList.add(`row${i}`)
-    for(let j = 0; j < columnasTabla; j++ ){
+    for (let j = 0; j < columnasTabla; j++) {
       let celda = filaActual.insertCell(j)
       //celda.innerHTML = `10`
       celda.classList.add(`col${j}`)
-      celda.classList.add(`celda`)
-      celda.setAttribute("colspan",0)
     }
   }
 }
 
-function updatePiece (){
-
-}
 
 var Classpieza = function () {
 
-  this.x = 5;
-  this.y = 5;
-  
-  console.log('pieza creada')
+  var piezas = [
+    {
+      pieza:"l",
+      estrutura: [{x:1,y:1},{x:1,y:2},{x:1,y:3},{x:1,y:4}]
+    }
+  ]
 
+
+  this.x = 4;
+  this.y = 4;
+
+  console.log('pieza creada')
   this.rotar = function () {
-    
+
   }
 
   this.abajo = function () {
     this.y++
     console.log(this.y)
-    
+
   }
 
   this.izquierda = function () {
     this.x--
-    
+
   }
 
   this.derecha = function () {
     this.x++
   }
 
-  this.drawPiece = function(){
+  this.drawPiece = function () {
     var pieza = document.querySelector(`.row${this.y} .col${this.x}`)
-      pieza.classList.add('pieza')
-      
+    pieza.classList.add('pieza')
+  }
+  this.updatePiece = function () {
+    var pieza = document.querySelectorAll('.pieza')
+    pieza.forEach(function (elem) {
+      elem.classList.remove('pieza')
+    })
+  }
+  this.pintarPiezas = function(){
+    piezas.forEach(e => {
+      e.estrutura.forEach(e => {
+        let pieza = document.querySelectorAll(`.row${e.y} .col${e.x}`)
+        console.log(pieza)
+      })
+    })
   }
 }
-pieza = new Classpieza();
 
+pieza = new Classpieza();
+pieza.pintarPiezas()
 crearTabla()
 
 document.addEventListener('keydown', function (tecla) {
@@ -320,6 +109,7 @@ setInterval(function () {
 
 //funcion principal del juego
 function principal() {
+  pieza.updatePiece()
   pieza.drawPiece();
 }
 
