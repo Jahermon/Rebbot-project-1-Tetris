@@ -23,6 +23,7 @@ var tablero = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   // Es arriba es zona muerta donde se genera la pieza.
+  [1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -46,8 +47,7 @@ var tablero = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 
 ];
@@ -239,6 +239,28 @@ var fichaGrafico = [
   ]
 ];
 
+var cuadrado = [
+  [
+    [0, 0, 0, 0],
+    [0, 1, 1, 0],
+    [0, 1, 1, 0],
+    [0, 0, 0, 0]
+  ]
+]
+
+var posicionY = 0
+var posicionX = 100
+
+function dibujarPieza(pieza){
+  for(py = 0; py < pieza.length; py++){
+    for(px = 0; px < pieza.length; px++){
+        contexto.fillRect( posicionX, posicionY, anchoFicha, altoFicha)
+      
+    }
+  }
+}
+
+
 //colores
 var rojo = '#da0000';
 var verde = '#00e510';
@@ -251,29 +273,44 @@ var gris = ''
 
 
 var Classpieza = function () {
-  this.x = 2;
-  this.y = 2;
+
+  this.x = 1;
+  this.y = 1;
   this.angulo = 0
   this.tipo = 1
 
   console.log('pieza creada')
 
   this.rotar = function () {
-    console.log('rotando')
+    
   }
 
   this.abajo = function () {
-    console.log('moviendo abajo')
+    posicionY++
+    console.log(posicionY)
   }
 
   this.izquierda = function () {
-    console.log('moviendo izquierda')
+    posicionX--
+    console.log(posicionX)
   }
 
   this.derecha = function () {
-    console.log('moviendo derecha')
+    posicionX++
+    console.log(posicionX)
   }
 
+  /*this.dibujar = function(){
+    for(py = 0; py < cuadrado.length; py++){
+      for(px = 0; px < cuadrado.length; px++){
+          contexto.fillRect( 200, 200, anchoFicha, altoFicha)
+        
+      }
+    }
+  }*/
+
+
+  
 
 }
 
@@ -306,7 +343,7 @@ function dibujarTablero() {
         if (tablero[py][px] == 7) {
           contexto.fillStyle = azulClaro;
         }
-        contexto.fillRect((px - 1) * anchoFicha, (py - margenSuperior) * altoFicha, anchoFicha, altoFicha);
+        contexto.fillRect((px - 1) * anchoFicha, (py - margenSuperior ) * altoFicha, anchoFicha, altoFicha);
       }
     }
   }
@@ -350,8 +387,7 @@ function borrarCanvas() {
 function principal() {
   borrarCanvas()
   dibujarTablero()
-  console.log("test")
-  //pieza.dibuja()
+  dibujarPieza(cuadrado)
 
 }
 
