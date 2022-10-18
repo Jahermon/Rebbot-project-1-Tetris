@@ -1,11 +1,6 @@
-var anchoTablero = 16;
-var altoTablero = 30;
-var fps = 10
-
+var velocidadJuego = 5
 var filasTabla = 26
 var columnasTabla = 16
-
-//cada una de las fichas, son 7 fichas con 4 angulos distintos representadas en un array de 4 dimensiones
 
 //colores
 var rojo = '#da0000';
@@ -17,7 +12,6 @@ var rosa = '#ff52e0';
 var azulClaro = '#52fff5';
 
 var numeroAleatorio = Math.floor(Math.random() *7)
-
 
 function crearTabla() {
   for (let i = 0; i < filasTabla; i++) {
@@ -31,93 +25,67 @@ function crearTabla() {
   }
 }
 
+var piezas = [
+  {
+    pieza: "O",
+    numero: 0,
+    estructura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 1 }, { x: 2, y: 2 }]
+  },
+  {
+    pieza: "I",
+    numero: 1,
+    estructura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 1, y: 3 }, { x: 1, y: 4 }]
+  },
+  {
+    pieza: "Z",
+    numero: 2,
+    estructura: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 2 }]
+  },
+  {
+    pieza: "S",
+    numero: 3,
+    estructura: [{ x: 3, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 1, y: 2 }]
+  },
+  {
+    pieza: "T",
+    numero: 4,
+    estructura: [{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 2, y: 1 }]
+  },
+  {
+    pieza: "L",
+    numero: 5,
+    estructura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 3 }]
+  },
+  {
+    pieza: "J",
+    numero: 6,
+    estructura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 1, y: 3 }]
+  },
+]
+
+
+let ultimaPosicion = []
+
 var Classpieza = function () {
   
-  var piezas = [
-    {
-      pieza: "O",
-      numero: 0,
-      estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 1 }, { x: 2, y: 2 }]
-    },
-    {
-      pieza: "I",
-      numero: 1,
-      estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 1, y: 3 }, { x: 1, y: 4 }]
-    },
-    {
-      pieza: "Z",
-      numero: 2,
-      estrutura: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 2 }]
-    },
-    {
-      pieza: "S",
-      numero: 3,
-      estrutura: [{ x: 3, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 1, y: 2 }]
-    },
-    {
-      pieza: "T",
-      numero: 4,
-      estrutura: [{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 2, y: 1 }]
-    },
-    {
-      pieza: "L",
-      numero: 5,
-      estrutura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 3 }]
-    },
-    {
-      pieza: "J",
-      numero: 6,
-      estrutura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 1, y: 3 }]
-    },
-  ]
-  /*var piezas = [
-    {
-      pieza: "O",
-      numero: 0,
-      estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 1 }, { x: 2, y: 2 }]
-    },
-    {
-      pieza: "I",
-      numero: 1,
-      estrutura: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 1, y: 3 }, { x: 1, y: 4 }]
-    },
-    {
-      pieza: "Z",
-      numero: 2,
-      estrutura: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 2 }]
-    },
-    {
-      pieza: "S",
-      numero: 3,
-      estrutura: [{ x: 3, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 1, y: 2 }]
-    },
-    {
-      pieza: "T",
-      numero: 4,
-      estrutura: [{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 2, y: 1 }]
-    },
-    {
-      pieza: "L",
-      numero: 5,
-      estrutura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 3 }]
-    },
-    {
-      pieza: "J",
-      numero: 6,
-      estrutura: [{ x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 1, y: 3 }]
-    },
-  ]*/
   
+
   this.rotar = function () {
     console.log("arriba")
   }
   this.abajo = function (numero) {
+
     piezas.forEach(e => {
       if (e.numero === numero) {
-        e.estrutura.forEach(e => {
+
+       let estructuraActual = e.estructura.map( e => e )
+       
+       console.log(estructuraActual)
+        estructuraActual.forEach(e => {
           var pieza = document.querySelector(`.row${e.y++} .col${e.x}`)
           pieza.classList.add('pieza')
-          console.log("movimiento") })
+          console.log(piezas[numeroAleatorio].estructura)
+           })
       }
     })
   }
@@ -125,10 +93,12 @@ var Classpieza = function () {
   this.izquierda = function (numero) {
     piezas.forEach(e => {
       if (e.numero === numero) {
-        e.estrutura.forEach(e => {
+        let estructuraActual = e.estructura.map(e=>e)
+        estructuraActual.forEach(e => {
           var pieza = document.querySelector(`.row${e.y} .col${e.x--}`)
           pieza.classList.add('pieza')
-          console.log("movimiento") })
+          console.log(piezas[numeroAleatorio].estructura)
+           })
       }
     })
     
@@ -137,36 +107,40 @@ var Classpieza = function () {
   this.derecha = function (numero) {
     piezas.forEach(e => {
       if (e.numero === numero) {
-        e.estrutura.forEach(e => {
+        let estructuraActual = e.estructura.map(e=>e)
+        estructuraActual.forEach(e => {
           var pieza = document.querySelector(`.row${e.y} .col${e.x++}`)
           pieza.classList.add('pieza')
-          console.log("movimiento") })
+          console.log(piezas[numeroAleatorio].estructura)
+           })
       }
     })
   }
 
-  
   this.updatePiece = function () {
     var pieza = document.querySelectorAll('.pieza')
     pieza.forEach(function (elem) {
       elem.classList.remove('pieza')
     })
   }
+
   this.pintarPiezas = function (numero) {
     piezas.forEach(e => {
       if (e.numero === numero) {
-        e.estrutura.forEach(e => {
-          var pieza = document.querySelector(`.row${e.y} .col${e.x}`)
+        let estructuraActual = e.estructura.map(e=>e)
+        estructuraActual.forEach(e => {
+          
+          var pieza = document.querySelector(`.row${e.y++} .col${e.x}`)
           pieza.classList.add('pieza')
-                 })
+       })
       }
     })
   }
+
 }
 crearTabla()
 pieza = new Classpieza();
 pieza.pintarPiezas()
-
 
 document.addEventListener('keydown', function (tecla) {
   if (tecla.keyCode === 38) {
@@ -187,13 +161,14 @@ setInterval(function () {
   principal();
 
   //el bucle se ejecuta 50 veces por segundo 
-}, 1000 / fps);
+}, 1000 / velocidadJuego);
+
+
 
 //funcion principal del juego
 function principal() {
   pieza.updatePiece()
   pieza.pintarPiezas(numeroAleatorio)
-
 }
 
 

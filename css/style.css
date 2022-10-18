@@ -14,3 +14,7 @@ td{
 .pieza{
     background-color: blue;
 }
+
+.tetromino{
+    background-color: black;
+}
