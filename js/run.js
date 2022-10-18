@@ -40,33 +40,29 @@ const TIPOS_PIEZAS = [
 ]
 
 function Pieza() {
-  // this.tipo = JSON.parse(JSON.stringify(TIPOS_PIEZAS[Math.floor(Math.random() *7)]));
-  this.tipo = JSON.parse(JSON.stringify(TIPOS_PIEZAS[0])).tipo;
-  this.pos = JSON.parse(JSON.stringify(TIPOS_PIEZAS[0])).pos;
+   this.tipo = JSON.parse(JSON.stringify(TIPOS_PIEZAS[Math.floor(Math.random() *7)]));
+  
 }
 
 
 Pieza.prototype.update = function () {
-  this.pos.forEach(pos => {
+  this.tipo.pos.forEach(pos => {
     pos.y++
   })
 }
-
 Pieza.prototype.derecha = function () {
-  this.pos.forEach(pos => {
+  this.tipo.pos.forEach(pos => {
     pos.x++
   })
 }
-
 Pieza.prototype.izquierda = function () {
-  this.pos.forEach(pos => {
+  this.tipo.pos.forEach(pos => {
     pos.x--
   })
 }
 
-
 function Game() {
-  this.velocidadJuego = 4
+  this.velocidadJuego = 1
   this.filasTabla = 26
   this.columnasTabla = 16
   this.timerId = null;
@@ -91,8 +87,8 @@ function Game() {
 
   this.pintaPiezas = function() {
     this.pieces.forEach(pieza => {
-      pieza.pos.forEach(pos => {
-        if (pos.y < this.filasTabla) {
+      pieza.tipo.pos.forEach(pos => {
+        if (pos.y <= this.filasTabla) {
           var casilla = document.querySelector(`.row${pos.y} .col${pos.x}`)
           casilla.classList.add('pieza')
         }
@@ -102,24 +98,37 @@ function Game() {
 
   this.movePiezas = function() {
     this.pieces.forEach(pieza => {
-      pieza.update()
+        pieza.update()
     })
   }
 
   this.movePiece = function(dir) {
    const piezaActual = this.pieces[0]
+   
    switch (dir){
     case 'ArrowLeft':
-      piezaActual.izquierda();
+      if(this.pieces[0].tipo.pos[3].x > 0
+        && this.pieces[0].tipo.pos[0].x > 0
+        && this.pieces[0].tipo.pos[1].x > 0
+        && this.pieces[0].tipo.pos[2].x > 0){
+        piezaActual.izquierda();
+      }
       break;
     case 'ArrowRight':
-      piezaActual.derecha();
+      if(this.pieces[0].tipo.pos[0].x < 15
+        && this.pieces[0].tipo.pos[1].x < 15
+        && this.pieces[0].tipo.pos[2].x < 15
+        && this.pieces[0].tipo.pos[3].x < 15 ){
+          console.log(this.pieces[0].tipo.pos[0].x)
+        piezaActual.derecha();
+    }
       break;   
     }
   }
 
   this.start = function() {
     this.crearTabla()
+    //Pasa la copia del array TIPOS_PIEZAS
     this.pieces.push(new Pieza())
 
     this.timerId = setInterval(() => {
