@@ -44,7 +44,6 @@ function Pieza() {
   
 }
 
-
 Pieza.prototype.update = function () {
   this.tipo.pos.forEach(pos => {
     pos.y++
@@ -67,7 +66,7 @@ Pieza.prototype.izquierda = function () {
 }
 
 function Game() {
-  this.velocidadJuego = 4
+  this.velocidadJuego = 3
   this.filasTabla = 26
   this.columnasTabla = 16
   this.timerId = null;
@@ -107,25 +106,36 @@ function Game() {
             &&pieza.tipo.pos[3].y <25) 
   }
 
-this.checkPiece = function(){
+this.fijarPiezaTablero = function(){
   var posicionPieza =document.querySelectorAll('.pieza')
   posicionPieza.forEach(e=> {
   e.classList.add('tetromino')
   e.classList.remove('pieza')
 })
-  //return (pieza.tipo.pos[0].classList.contains())
-  
+ //return (pieza.tipo.pos[0].classList.contains( 
 }
-  this.movePiezas = function() {
-    this.pieces.forEach(pieza => {
-        console.log(pieza)
-        if( this.checkBottom(pieza) ){
-            pieza.update()
-          }else{
-            this.checkPiece()
+
+
+this.checkTetromino = function(pieza) {
+  pieza.tipo.pos.forEach(pos => {
+      var celdaSiguente  = document.querySelector(`.row${pos.y} .col${pos.x}`)
+      if(celdaSiguente.classList.contains('tetromino')){
+        this.fijarPiezaTablero()
             this.pieces.pop()
             this.pieces.push(new Pieza())
-            
+      }
+  })
+
+}
+  this.movePiezas = function() {
+    this.pieces.forEach(pieza => {        
+        if( this.checkBottom(pieza) ){
+            pieza.update()
+            this.checkTetromino(pieza)
+          }else{
+            this.fijarPiezaTablero()
+            this.pieces.pop()
+            this.pieces.push(new Pieza())
           }
     })
   }
