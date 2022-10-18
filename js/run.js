@@ -50,6 +50,11 @@ Pieza.prototype.update = function () {
     pos.y++
   })
 }
+Pieza.prototype.abajo = function () {
+  this.tipo.pos.forEach(pos => {
+    pos.y++
+  })
+}
 Pieza.prototype.derecha = function () {
   this.tipo.pos.forEach(pos => {
     pos.x++
@@ -98,7 +103,13 @@ function Game() {
 
   this.movePiezas = function() {
     this.pieces.forEach(pieza => {
-        pieza.update()
+        if(pieza.tipo.pos[0].y <25 
+          &&pieza.tipo.pos[1].y <25
+          &&pieza.tipo.pos[2].y <25 
+          &&pieza.tipo.pos[3].y <25 ){
+            pieza.update()
+          }
+       
     })
   }
 
@@ -107,21 +118,30 @@ function Game() {
    
    switch (dir){
     case 'ArrowLeft':
-      if(this.pieces[0].tipo.pos[3].x > 0
-        && this.pieces[0].tipo.pos[0].x > 0
-        && this.pieces[0].tipo.pos[1].x > 0
-        && this.pieces[0].tipo.pos[2].x > 0){
+      if(piezaActual.tipo.pos[3].x > 0
+        && piezaActual.tipo.pos[0].x > 0
+        && piezaActual.tipo.pos[1].x > 0
+        && piezaActual.tipo.pos[2].x > 0){
         piezaActual.izquierda();
       }
       break;
     case 'ArrowRight':
-      if(this.pieces[0].tipo.pos[0].x < 15
-        && this.pieces[0].tipo.pos[1].x < 15
-        && this.pieces[0].tipo.pos[2].x < 15
-        && this.pieces[0].tipo.pos[3].x < 15 ){
-          console.log(this.pieces[0].tipo.pos[0].x)
+      if(piezaActual.tipo.pos[0].x < 15
+        && piezaActual.tipo.pos[1].x < 15
+        && piezaActual.tipo.pos[2].x < 15
+        && piezaActual.tipo.pos[3].x < 15 ){
+          console.log(piezaActual.tipo.pos[0].x)
         piezaActual.derecha();
-    }
+      }
+      break;   
+    case 'ArrowDown':
+      if(piezaActual.tipo.pos[0].y < 25
+        && piezaActual.tipo.pos[1].y < 25
+        && piezaActual.tipo.pos[2].y < 25
+        && piezaActual.tipo.pos[3].y < 25){
+          
+        piezaActual.abajo();
+      }
       break;   
     }
   }
