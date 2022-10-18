@@ -66,7 +66,7 @@ Pieza.prototype.izquierda = function () {
 
 
 function Game() {
-  this.velocidadJuego = 1
+  this.velocidadJuego = 4
   this.filasTabla = 26
   this.columnasTabla = 16
   this.timerId = null;
@@ -95,7 +95,6 @@ function Game() {
         if (pos.y < this.filasTabla) {
           var casilla = document.querySelector(`.row${pos.y} .col${pos.x}`)
           casilla.classList.add('pieza')
-           
         }
       })
     })
