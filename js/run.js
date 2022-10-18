@@ -40,7 +40,7 @@ const TIPOS_PIEZAS = [
 ]
 
 function Pieza() {
-   this.tipo = JSON.parse(JSON.stringify(TIPOS_PIEZAS[Math.floor(Math.random() *7)]));
+   this.tipo = JSON.parse(JSON.stringify(TIPOS_PIEZAS[0]));
   
 }
 
@@ -67,7 +67,7 @@ Pieza.prototype.izquierda = function () {
 }
 
 function Game() {
-  this.velocidadJuego = 1
+  this.velocidadJuego = 4
   this.filasTabla = 26
   this.columnasTabla = 16
   this.timerId = null;
@@ -100,14 +100,22 @@ function Game() {
       })
     })
   }
-
+  this.checkBottom = function(pieza){
+    return (pieza.tipo.pos[0].y <25 
+            &&pieza.tipo.pos[1].y <25
+            &&pieza.tipo.pos[2].y <25 
+            &&pieza.tipo.pos[3].y <25)
+  }
+this.checkPiece = function(pieza){
+  return (pieza.tipo.pos[0].classList.contains())
+}
   this.movePiezas = function() {
     this.pieces.forEach(pieza => {
-        if(pieza.tipo.pos[0].y <25 
-          &&pieza.tipo.pos[1].y <25
-          &&pieza.tipo.pos[2].y <25 
-          &&pieza.tipo.pos[3].y <25 ){
+        if( this.checkBottom(pieza) ){
             pieza.update()
+          }else{
+            //si ha llegado al fondo la saca del array .pop() y genero una nueva pieza
+            
           }
        
     })
@@ -138,7 +146,7 @@ function Game() {
       if(piezaActual.tipo.pos[0].y < 25
         && piezaActual.tipo.pos[1].y < 25
         && piezaActual.tipo.pos[2].y < 25
-        && piezaActual.tipo.pos[3].y < 25){
+        && piezaActual.tipo.pos[3].y < 25) {
           
         piezaActual.abajo();
       }
