@@ -101,23 +101,32 @@ function Game() {
     })
   }
   this.checkBottom = function(pieza){
-    return (pieza.tipo.pos[0].y <25 
+    return ( pieza.tipo.pos[0].y <25 
             &&pieza.tipo.pos[1].y <25
             &&pieza.tipo.pos[2].y <25 
-            &&pieza.tipo.pos[3].y <25)
+            &&pieza.tipo.pos[3].y <25) 
   }
-this.checkPiece = function(pieza){
-  return (pieza.tipo.pos[0].classList.contains())
+
+this.checkPiece = function(){
+  var posicionPieza =document.querySelectorAll('.pieza')
+  posicionPieza.forEach(e=> {
+  e.classList.add('tetromino')
+  e.classList.remove('pieza')
+})
+  //return (pieza.tipo.pos[0].classList.contains())
+  
 }
   this.movePiezas = function() {
     this.pieces.forEach(pieza => {
+        console.log(pieza)
         if( this.checkBottom(pieza) ){
             pieza.update()
           }else{
-            //si ha llegado al fondo la saca del array .pop() y genero una nueva pieza
+            this.checkPiece()
+            this.pieces.pop()
+            this.pieces.push(new Pieza())
             
           }
-       
     })
   }
 
