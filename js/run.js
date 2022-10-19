@@ -100,7 +100,7 @@ function Game() {
     })
     if (contador === 16) {
       fila.forEach(e => {
-        e.classList.remove('tetromino')
+        e.classList.remove('tetromino' )
       })
       contador = 0
     }
@@ -109,7 +109,7 @@ function Game() {
   this.DesplazarAbajoLosTetrominos = function () {
     var todosLosTetrominos = document.querySelectorAll('.tetromino')
     todosLosTetrominos.forEach(e => {
-      
+
     })
     console.log(todosLosTetrominos)
   }
