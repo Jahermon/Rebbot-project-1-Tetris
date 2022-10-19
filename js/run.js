@@ -1,11 +1,11 @@
 const COLORES = {
-  rojo: '#da0000',
-  verde: '#00e510',
-  azul: '#0046f7',
-  amarillo: '#d2ff00',
-  naranja: '#ff8a00',
-  rosa: '#ff52e0',
-  azulClaro: '#52fff5'
+  rojo: 'rojo',
+  verde: 'verde',
+  azul: 'azul',
+  amarillo: 'amarillo',
+  naranja: 'naranja',
+  rosa: 'rosa',
+  azulClaro: 'azulClaro'
 }
 
 const TIPOS_PIEZAS = [
@@ -123,7 +123,7 @@ function Game() {
   this.movida = function (fila) {
     contador = 0
     fila.forEach(e => {
-      if (!e.classList.contains('tetromino')) {
+      if (e.classList.contains('tetromino')) {
         contador++
       }
     })
@@ -156,9 +156,6 @@ function Game() {
   }
 
 
-  this.desplazarPiezas = function(){
-
-  }
   /*this.checkFilaCompleta = function (fila) {
 
     var fila = document.querySelectorAll(`.row${fila} td`)
@@ -173,13 +170,19 @@ function Game() {
     }
   }*/
 
+
+  this.desplazarfilas = function ( ){
+    for(i=26; i > 0; i--){
+      this.movida(document.querySelectorAll(`.row${i-10} td`))
+    }
+  }
+
   this.monitorizarFilas = function () {
     
     for(i=26; i > 0; i--){
       this.borrarFilaCompleta(document.querySelectorAll(`.row${i} td`))
       //this.movida(document.querySelectorAll(`.row${i+14} td`))
     }
-    
   }
 
   //this.limpiaFila
@@ -237,6 +240,30 @@ function Game() {
 
   this.movePiezas = function () {
     this.pieces.forEach(pieza => {
+     /* switch (pieza.tipo.tipo) {
+        case "O":
+          pieza.classList.add(COLORES.rojo)
+          break;
+        case "I" :
+          pieza.classList.add(COLORES.verde)
+        break
+        case "Z" :
+          pieza.classList.add(COLORES.azul)
+        break
+        case "S" :
+          pieza.classList.add(COLORES.amarillo)
+        break
+        case "T" :
+          pieza.classList.add(COLORES.naranja)
+        break
+        case "L" :
+          pieza.classList.add(COLORES.rosa)
+        break
+        case "J" :
+          pieza.classList.add(COLORES.azulClaro)
+        break
+       
+      }*/
       if (this.checkBottom(pieza)) {
         pieza.movimientoAutomatico()
         this.checkTetromino(pieza)
@@ -298,6 +325,7 @@ function Game() {
   this.updateGame = function () {
     this.limpiaTabla()
     this.monitorizarFilas()
+    this.desplazarfilas()
     this.pintaPiezas()
     this.movePiezas()
 

@@ -5,6 +5,32 @@
     
 }
 
+.rojo{
+    background-color:#da0000;
+}
+.verde{
+    background-color:#00e510;
+}
+.azul{
+    background-color:#0046f7';
+}
+.amarillo{
+    background-color:#d2ff00;
+}
+.naranja{
+    background-color:#ff8a00;
+}
+.rosa{
+    background-color:#ff52e0;
+}
+.azulClaro{
+    background-color:#52fff5;
+}
+
+.default{
+    background-color: brown;
+}
+    
 td{
     background-color: aquamarine;
     height: 15px;
