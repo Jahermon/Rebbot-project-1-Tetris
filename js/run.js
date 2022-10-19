@@ -141,7 +141,8 @@ function Game() {
   }
 
   this.checkFilaCompleta = function (fila) {
-    var fila = document.querySelectorAll('.row25 td')
+
+    var fila = document.querySelectorAll(`.row${fila} td`)
     var conta = 0
     fila.forEach(e => {
       if (e.classList.contains('tetromino')) {
@@ -155,14 +156,17 @@ function Game() {
 
   //this.limpiaFila
   this.limpiaFila = function () {
-    for (i = 0; i < 26; i++) {
+    for (i = 25; i >= 0; i--) {
+      for(j = 0; j < 16; j++){
       var cols = document.querySelector(`.row${i}`).querySelectorAll("td");
-      if (this.checkFilaCompleta(cols)) {
+      console.log(cols)
+      if (this.checkFilaCompleta(i)) {
         cols.forEach(e => {
           e.classList.remove('tetromino')
         })
       }
-      
+      //this.moverFila()
+    }
     }
   }
   //  aplicar la limpieza en todas las filas
