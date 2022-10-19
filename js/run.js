@@ -112,9 +112,9 @@ function Game() {
     })
   }
 
-  this.limpiaUltimaFila = function () {
+  /*this.limpiaUltimaFila = function () {
     var fila = document.querySelectorAll("#tablero tr:last-child td");
-    contador = 0
+     var contador = 0
     fila.forEach(e => {
       if (e.classList.contains('tetromino')) {
         contador++
@@ -126,10 +126,46 @@ function Game() {
       })
       contador = 0
     }
+  }*/
+
+  //cambia la clase de tetro a nada
+  this.moverFila = function(fila, numFila){
+    var cols = fila.querySelectorAll("td");
+    cols.forEach((e, idx)=> {
+      if (e.classList.contains('tetromino')) {
+        e.classList.remove('tetromino')
+        document.querySelector(`.row${numFila+1} > .col${idx}`).classList.add('tetromino')
+      }
+    })
+  }
+this.checkFilaCompleta = function(fila){
+
+}
+
+
+
+//this.limpiaFila
+  this.limpiaFila = function (fila) {
+    var cols = fila.querySelectorAll("td");
+     var contador = 0
+     console.log(fila)
+    cols.forEach(e => {
+      if (e.classList.contains('tetromino')) {
+        contador++
+      }
+    })
+    if (contador === 16) {
+      cols.forEach(e => {
+        e.classList.remove('tetromino')
+      })
+      contador = 0
+    }
+
+
   }
   //  aplicar la limpieza en todas las filas
   this.DesplazarAbajoLosTetrominos = function () {
-    var row1 = document.querySelectorAll(`#tablero  tr:nth-child(1) td`)
+    /*var row1 = document.querySelectorAll(`#tablero  tr:nth-child(1) td`)
     var row2 = document.querySelectorAll(`#tablero  tr:nth-child(2) td`)
     var row3 = document.querySelectorAll(`#tablero  tr:nth-child(3) td`)
     var row4 = document.querySelectorAll(`#tablero  tr:nth-child(4) td`)
@@ -153,18 +189,31 @@ function Game() {
     var row22 = document.querySelectorAll(`#tablero  tr:nth-child(22) td`)
     var row23 = document.querySelectorAll(`#tablero  tr:nth-child(23) td`)
     var row24 = document.querySelectorAll(`#tablero  tr:nth-child(24) td`)
-    var row25 = document.querySelectorAll(`#tablero  tr:nth-child(25) td`)
+    var row25 = document.querySelectorAll(`#tablero  tr:nth-child(25) td`)*/
 
+      for(i=0; i<26; i++){
+        for(j=0; j<26; j++){
+        
+        }
+      }
+    var contador1 = 0
+    row24.forEach(e => {
+      if (e.classList.contains('tetromino')) {
+        console.log('lo detecta')
+      }
+    })
+    /*if (contador1 === 16) {
+      row24.forEach(e => {
+        e.classList.remove('tetromino')
+      })*/
+      //contador1 = 0
+      //console.log(contador1)
+    
+    /*var filasTabla = [row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18.row19, row20, row21, row22, row23, row24, row25]*/
 
-    var filasTabla = [row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18.row19, row20, row21, row22, row23, row24, row25]
+    
 
-    /*filasTabla.forEach(element => {
-      element.forEach(elm => {
-        console.log(elm)
-      })
-    });*/
-
-    console.log(row21)
+    //console.log(row24)
   }
 
   this.pintaPiezas = function () {
@@ -212,14 +261,17 @@ function Game() {
   }
 
   this.movePiezas = function () {
-    this.pieces.forEach(tetromino => {
-      if (this.checkBottom(tetromino)) {
-        tetromino.update()
-        this.checkTetromino(tetromino)
+    this.pieces.forEach(pieza => {
+      if (this.checkBottom(pieza) ) {
+        pieza.update()
+        this.checkTetromino(pieza)
       } else {
         this.fijarPiezaTablero()
-        this.limpiaUltimaFila()
-        this.DesplazarAbajoLosTetrominos()
+        //this.limpiaUltimaFila()
+        this.limpiaFila(document.querySelector('.row25'))
+        this.moverFila(document.querySelector('.row24'), 24)
+        
+        //this.DesplazarAbajoLosTetrominos()
         this.pieces.pop()
         this.pieces.push(new Pieza())
       }
