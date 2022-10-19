@@ -112,7 +112,7 @@ function Game() {
     })
   }
 
-  /*this.limpiaUltimaFila = function () {
+  this.limpiaUltimaFila = function () {
     var fila = document.querySelectorAll("#tablero tr:last-child td");
      var contador = 0
     fila.forEach(e => {
@@ -126,7 +126,7 @@ function Game() {
       })
       contador = 0
     }
-  }*/
+  }
 
   //cambia la clase de tetro a nada
   this.moverFila = function(fila, numFila){
@@ -139,7 +139,15 @@ function Game() {
     })
   }
 this.checkFilaCompleta = function(fila){
-
+ var contador = 0
+  fila.forEach(e => {
+    if(e.classList.contains('tetromino')){
+      contador++
+    }
+  })
+  if(contador===16){
+    return true
+  }
 }
 
 
@@ -267,9 +275,9 @@ this.checkFilaCompleta = function(fila){
         this.checkTetromino(pieza)
       } else {
         this.fijarPiezaTablero()
-        //this.limpiaUltimaFila()
-        this.limpiaFila(document.querySelector('.row25'))
-        this.moverFila(document.querySelector('.row24'), 24)
+        this.limpiaUltimaFila()
+        //this.limpiaFila(document.querySelector('.row25'))
+        //this.moverFila(document.querySelector('.row24'), 24)
         
         //this.DesplazarAbajoLosTetrominos()
         this.pieces.pop()
