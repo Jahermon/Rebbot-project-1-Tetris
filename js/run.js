@@ -46,17 +46,40 @@ function Pieza() {
 
 Pieza.prototype.update = function () {
   this.tipo.pos.forEach(pos => {
+    
     pos.y++
   })
 }
 Pieza.prototype.abajo = function () {
   this.tipo.pos.forEach(pos => {
-    pos.y++
+    var movimiento = true
+    var celdaSiguenteAbajo = document.querySelector(`.row${pos.y} .col${pos.x}`)
+      if (celdaSiguenteAbajo.classList.contains('tetromino')) {
+        movimiento=false
+        game.fijarPiezaTablero()
+        game.pieces.pop()
+        game.pieces.push(new Pieza())
+      }
+      if(movimiento){
+        pos.y++
+      }
+    
   })
 }
 Pieza.prototype.derecha = function () {
   this.tipo.pos.forEach(pos => {
-    pos.x++
+    var celdaSiguenteDerecha = document.querySelector(`.row${pos.y} .col${pos.x}`)
+      var movimiento = true
+      if (celdaSiguenteDerecha.classList.contains('tetromino') ) {
+        movimiento = false
+      }else{
+        movimiento = true
+      }
+
+      if(movimiento){
+        pos.x++
+      }
+    
   })
 }
 Pieza.prototype.izquierda = function () {
@@ -66,13 +89,11 @@ Pieza.prototype.izquierda = function () {
 }
 
 function Game() {
-  this.velocidadJuego = 5
+  this.velocidadJuego = 6
   this.filasTabla = 26
   this.columnasTabla = 16
   this.timerId = null;
   this.pieces = []
-
-
 
   this.crearTabla = function () {
     for (let i = 0; i < this.filasTabla; i++) {
@@ -90,6 +111,7 @@ function Game() {
       elem.classList.remove('pieza')
     })
   }
+
   this.limpiaUltimaFila = function () {
     var fila = document.querySelectorAll("#tablero tr:last-child td");
     contador = 0
@@ -100,18 +122,49 @@ function Game() {
     })
     if (contador === 16) {
       fila.forEach(e => {
-        e.classList.remove('tetromino' )
+        e.classList.remove('tetromino')
       })
       contador = 0
     }
   }
-
+  //  aplicar la limpieza en todas las filas
   this.DesplazarAbajoLosTetrominos = function () {
-    var todosLosTetrominos = document.querySelectorAll('.tetromino')
-    todosLosTetrominos.forEach(e => {
+    var row1 = document.querySelectorAll(`#tablero  tr:nth-child(1) td`)
+    var row2 = document.querySelectorAll(`#tablero  tr:nth-child(2) td`)
+    var row3 = document.querySelectorAll(`#tablero  tr:nth-child(3) td`)
+    var row4 = document.querySelectorAll(`#tablero  tr:nth-child(4) td`)
+    var row5 = document.querySelectorAll(`#tablero  tr:nth-child(5) td`)
+    var row6 = document.querySelectorAll(`#tablero  tr:nth-child(6) td`)
+    var row7 = document.querySelectorAll(`#tablero  tr:nth-child(7) td`)
+    var row8 = document.querySelectorAll(`#tablero  tr:nth-child(8) td`)
+    var row9 = document.querySelectorAll(`#tablero  tr:nth-child(9) td`)
+    var row10 = document.querySelectorAll(`#tablero  tr:nth-child(10) td`)
+    var row11 = document.querySelectorAll(`#tablero  tr:nth-child(11) td`)
+    var row12 = document.querySelectorAll(`#tablero  tr:nth-child(12) td`)
+    var row13 = document.querySelectorAll(`#tablero  tr:nth-child(13) td`)
+    var row14 = document.querySelectorAll(`#tablero  tr:nth-child(14) td`)
+    var row15 = document.querySelectorAll(`#tablero  tr:nth-child(15) td`)
+    var row16 = document.querySelectorAll(`#tablero  tr:nth-child(16) td`)
+    var row17 = document.querySelectorAll(`#tablero  tr:nth-child(17) td`)
+    var row18 = document.querySelectorAll(`#tablero  tr:nth-child(18) td`)
+    var row19 = document.querySelectorAll(`#tablero  tr:nth-child(19) td`)
+    var row20 = document.querySelectorAll(`#tablero  tr:nth-child(20) td`)
+    var row21 = document.querySelectorAll(`#tablero  tr:nth-child(21) td`)
+    var row22 = document.querySelectorAll(`#tablero  tr:nth-child(22) td`)
+    var row23 = document.querySelectorAll(`#tablero  tr:nth-child(23) td`)
+    var row24 = document.querySelectorAll(`#tablero  tr:nth-child(24) td`)
+    var row25 = document.querySelectorAll(`#tablero  tr:nth-child(25) td`)
 
-    })
-    console.log(todosLosTetrominos)
+
+    var filasTabla = [row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18.row19, row20, row21, row22, row23, row24, row25]
+
+    /*filasTabla.forEach(element => {
+      element.forEach(elm => {
+        console.log(elm)
+      })
+    });*/
+
+    console.log(row21)
   }
 
   this.pintaPiezas = function () {
@@ -124,6 +177,7 @@ function Game() {
       })
     })
   }
+
   this.checkBottom = function (pieza) {
     return (pieza.tipo.pos[0].y < 25
       && pieza.tipo.pos[1].y < 25
@@ -136,10 +190,16 @@ function Game() {
     posicionPieza.forEach(e => {
       e.classList.remove('pieza')
       e.classList.add('tetromino')
-
     })
-    //return (pieza.tipo.pos[0].classList.contains( 
   }
+
+  this.checkTetrominoRightSide = function () {
+
+  }
+  this.checkTetrominoLeftSide = function () {
+
+  }
+
   this.checkTetromino = function (pieza) {
     pieza.tipo.pos.forEach(pos => {
       var celdaSiguente = document.querySelector(`.row${pos.y} .col${pos.x}`)
@@ -150,6 +210,7 @@ function Game() {
       }
     })
   }
+
   this.movePiezas = function () {
     this.pieces.forEach(tetromino => {
       if (this.checkBottom(tetromino)) {
@@ -170,10 +231,10 @@ function Game() {
 
     switch (dir) {
       case 'ArrowLeft':
-        if (piezaActual.tipo.pos[3].x > 0
-          && piezaActual.tipo.pos[0].x > 0
+        if (piezaActual.tipo.pos[0].x > 0
           && piezaActual.tipo.pos[1].x > 0
-          && piezaActual.tipo.pos[2].x > 0) {
+          && piezaActual.tipo.pos[2].x > 0
+          && piezaActual.tipo.pos[3].x > 0) {
           piezaActual.izquierda();
         }
         break;
@@ -182,7 +243,7 @@ function Game() {
           && piezaActual.tipo.pos[1].x < 15
           && piezaActual.tipo.pos[2].x < 15
           && piezaActual.tipo.pos[3].x < 15) {
-          console.log(piezaActual.tipo.pos[0].x)
+
           piezaActual.derecha();
         }
         break;
@@ -191,7 +252,6 @@ function Game() {
           && piezaActual.tipo.pos[1].y < 25
           && piezaActual.tipo.pos[2].y < 25
           && piezaActual.tipo.pos[3].y < 25) {
-
           piezaActual.abajo();
         }
         break;
@@ -207,8 +267,6 @@ function Game() {
       this.updateGame();
     }, 1000 / this.velocidadJuego);
   }
-
-
 
   this.updateGame = function () {
     this.limpiaTabla()
