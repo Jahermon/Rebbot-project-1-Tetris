@@ -88,12 +88,12 @@ Pieza.prototype.izquierda = function () {
 }
 
 function Game() {
-  this.velocidadJuego = 6
+  this.velocidadJuego = 4
   this.filasTabla = 26
   this.columnasTabla = 16
   this.timerId = null;
   this.pieces = []
-  
+
   this.crearTabla = function () {
     for (let i = 0; i < this.filasTabla; i++) {
       let filaActual = document.getElementById('tablero').insertRow(i)
@@ -105,19 +105,32 @@ function Game() {
     }
   }
   //elimina una fila de fichas cuando está completa
-  this.borrarFilaCompleta = function (fila) {
-    contador = 0
-    fila.forEach(e => {
-      if (e.classList.contains('tetromino')) {
-        contador++
-      }
-    })
-    if (contador === 16) {
-      fila.forEach(e => {
-        e.classList.remove('tetromino')
-        console.log(e)
+  this.monitorizarFilas = function () {
+    for (let i = 25; i > 0; i--) {
+
+      const fila = Array.from(document.querySelectorAll(`.row${i} td`))
+
+      const filaCompleta = fila.every(cell => {
+        return cell.classList.contains('tetromino')
       })
-      contador = 0
+
+      if (filaCompleta) {
+        for (let j = i; j > 0; j--) {
+          // Copio j-1  en j 
+          for (let k = 0; k < 16; k++) {
+            const elemAbajo = document.querySelector(`.row${j} > .col${k}`)
+            const elemArriba = document.querySelector(`.row${j - 1} > .col${k}`)
+            if (elemArriba.classList.contains('tetromino')) {
+              elemAbajo.classList.add('tetromino')
+            } else {
+              elemAbajo.classList.remove('tetromino')
+            }
+          }
+
+        }
+
+        return this.monitorizarFilas()
+      }
     }
   }
 
@@ -135,7 +148,7 @@ function Game() {
       })
       contador = 0
     }
-    
+
   }
 
   this.limpiaTabla = function () {
@@ -172,19 +185,12 @@ function Game() {
   }*/
 
 
-  this.ReducirEspacioDeJuego = function ( ){
-    for(i=26; i > 0; i--){
-      this.agregarFilasCompletas(document.querySelectorAll(`.row${i-10} td`))
+  this.ReducirEspacioDeJuego = function () {
+    for (i = 26; i > 0; i--) {
+      this.agregarFilasCompletas(document.querySelectorAll(`.row${i - 10} td`))
     }
   }
 
-  this.monitorizarFilas = function () {
-    
-    for(i=26; i > 0; i--){
-      this.borrarFilaCompleta(document.querySelectorAll(`.row${i} td`))
-      //this.movida(document.querySelectorAll(`.row${i+14} td`))
-    }
-  }
 
   //this.limpiaFila
   /*this.limpiaFila = function () {
@@ -241,30 +247,30 @@ function Game() {
 
   this.movePiezas = function () {
     this.pieces.forEach(pieza => {
-     /* switch (pieza.tipo.tipo) {
-        case "O":
-          pieza.classList.add(COLORES.rojo)
-          break;
-        case "I" :
-          pieza.classList.add(COLORES.verde)
-        break
-        case "Z" :
-          pieza.classList.add(COLORES.azul)
-        break
-        case "S" :
-          pieza.classList.add(COLORES.amarillo)
-        break
-        case "T" :
-          pieza.classList.add(COLORES.naranja)
-        break
-        case "L" :
-          pieza.classList.add(COLORES.rosa)
-        break
-        case "J" :
-          pieza.classList.add(COLORES.azulClaro)
-        break
-       
-      }*/
+      /* switch (pieza.tipo.tipo) {
+         case "O":
+           pieza.classList.add(COLORES.rojo)
+           break;
+         case "I" :
+           pieza.classList.add(COLORES.verde)
+         break
+         case "Z" :
+           pieza.classList.add(COLORES.azul)
+         break
+         case "S" :
+           pieza.classList.add(COLORES.amarillo)
+         break
+         case "T" :
+           pieza.classList.add(COLORES.naranja)
+         break
+         case "L" :
+           pieza.classList.add(COLORES.rosa)
+         break
+         case "J" :
+           pieza.classList.add(COLORES.azulClaro)
+         break
+        
+       }*/
       if (this.checkBottom(pieza)) {
         pieza.movimientoAutomatico()
         this.checkTetromino(pieza)
