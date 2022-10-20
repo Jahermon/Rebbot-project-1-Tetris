@@ -8,7 +8,9 @@ const COLORES = {
   azulClaro: 'azulClaro'
 }
 
-
+const musica = new Audio ('assets/music/tetris_gameboy.mp3');
+  musica.volume = 0.3;
+  musica.loop = true;
 const startButton = document.getElementById("start");
 const resetButton = document.getElementById("reset");
 const modal = document.getElementById("myModal");
@@ -299,7 +301,7 @@ function Game() {
     this.crearTabla()
     //Pasa la copia del array TIPOS_PIEZAS
     this.pieces.push(new Pieza())
-
+    musica.play();
     this.timerId = setInterval(() => {
       this.updateGame();
     }, 1000 / this.velocidadJuego);
