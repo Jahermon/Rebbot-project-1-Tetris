@@ -40,7 +40,7 @@ const TIPOS_PIEZAS = [
 ]
 
 function Pieza() {
-  this.tipo = JSON.parse(JSON.stringify(TIPOS_PIEZAS[0]));
+  this.tipo = JSON.parse(JSON.stringify(TIPOS_PIEZAS[/*Math.floor(Math.random()*7)*/0]));
 
 }
 
@@ -296,6 +296,15 @@ function Game() {
           piezaActual.abajo();
         }
         break;
+      case 'ArrowUp':
+        if (piezaActual.tipo.pos[0].y < 25
+          && piezaActual.tipo.pos[1].y < 25
+          && piezaActual.tipo.pos[2].y < 25
+          && piezaActual.tipo.pos[3].y < 25) {
+          this.pieces.pop()
+          this.pieces.push(new Pieza())
+        }
+        break;
     }
   }
 
@@ -344,7 +353,6 @@ function Game() {
     this.pintaPiezas()
     this.movePiezas()
     this.gameOver()
-
   }
 }
 const game = new Game()
@@ -352,10 +360,12 @@ game.start()
 game.gameOver()
 
 document.addEventListener('keydown', function (tecla) {
-  if (['ArrowLeft', 'ArrowDown', 'ArrowRight'].includes(tecla.code)) {
+  if (['ArrowLeft', 'ArrowDown', 'ArrowRight','ArrowUp'].includes(tecla.code)) {
     game.movePiece(tecla.code)
   }
 })
+
+
 
 
 
