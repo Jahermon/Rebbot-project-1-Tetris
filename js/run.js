@@ -104,8 +104,6 @@ function Game() {
           celda.classList.add(`col${j}`)
         }
       }
-    
-    
   }
   //elimina una fila de fichas cuando está completa
   this.monitorizarFilas = function () {
@@ -177,7 +175,6 @@ function Game() {
       this.agregarFilasCompletas(document.querySelectorAll(`.row${i - 10} td`))
     }
   }
-
 
   this.pintaPiezas = function () {
     this.pieces.forEach(pieza => {
@@ -327,10 +324,17 @@ function Game() {
 
   this.reiniciar = function(){
     var todo = document.querySelectorAll('td')
+    var divGameOver = document.querySelector('.gameOver')
+    divGameOver.setAttribute('hidden','')
     todo.forEach(e=>  {
       e.classList.remove('tetromino')
     })
+      this.pieces.pop()
+      this.pieces.push(new Pieza())
 
+      this.timerId = setInterval(() => {
+        this.updateGame();
+      }, 1000 / this.velocidadJuego);
   }
 
   this.updateGame = function () {
