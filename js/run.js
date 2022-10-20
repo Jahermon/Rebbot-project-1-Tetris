@@ -120,7 +120,8 @@ function Game() {
       contador = 0
     }
   }
-  this.movida = function (fila) {
+
+  this.agregarFilasCompletas = function (fila) {
     contador = 0
     fila.forEach(e => {
       if (e.classList.contains('tetromino')) {
@@ -171,9 +172,9 @@ function Game() {
   }*/
 
 
-  this.desplazarfilas = function ( ){
+  this.ReducirEspacioDeJuego = function ( ){
     for(i=26; i > 0; i--){
-      this.movida(document.querySelectorAll(`.row${i-10} td`))
+      this.agregarFilasCompletas(document.querySelectorAll(`.row${i-10} td`))
     }
   }
 
@@ -186,7 +187,7 @@ function Game() {
   }
 
   //this.limpiaFila
-  this.limpiaFila = function () {
+  /*this.limpiaFila = function () {
     for (i = 25; i >= 0; i--) {
       for (j = 0; j < 16; j++) {
         var cols = document.querySelector(`.row${i}`).querySelectorAll("td");
@@ -199,7 +200,7 @@ function Game() {
         //this.moverFila()
       }
     }
-  }
+  }*/
 
   this.pintaPiezas = function () {
     this.pieces.forEach(pieza => {
@@ -325,7 +326,7 @@ function Game() {
   this.updateGame = function () {
     this.limpiaTabla()
     this.monitorizarFilas()
-    this.desplazarfilas()
+    //this.ReducirEspacioDeJuego()
     this.pintaPiezas()
     this.movePiezas()
 
