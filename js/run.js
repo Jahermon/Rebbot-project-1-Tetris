@@ -15,30 +15,6 @@ const modal = document.getElementById("myModal");
 const instructionsButton = document.getElementById("instructions");
 const span = document.getElementsByClassName("close")[0];
 
-startButton.addEventListener("click", () => {
-  update();
-  startButton.style.display = "none";
-});
-
-resetButton.addEventListener("click", () => {
-  location.reload();
-});
-
-instructionsButton.addEventListener("click", () => {
-  modal.style.display = "block";
-});
-
-span.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-
-
 const TIPOS_PIEZAS = [
   {
     tipo: "O",
@@ -125,7 +101,8 @@ function Game() {
   this.filasTabla = 26
   this.columnasTabla = 16
   this.timerId = null;
-  this.pieces = []
+  this.pieces = [];
+  this.score = 0;
 
   this.crearTabla = function () {
     
@@ -160,28 +137,10 @@ function Game() {
               elemAbajo.classList.remove('tetromino')
             }
           }
-
         }
         return this.monitorizarFilas()
       }
     }
-  }
-
-  this.agregarFilasCompletas = function (fila) {
-    contador = 0
-    fila.forEach(e => {
-      if (e.classList.contains('tetromino')) {
-        contador++
-      }
-    })
-    if (contador === 16) {
-      fila.forEach(e => {
-        e.classList.add('tetromino')
-        console.log(e)
-      })
-      contador = 0
-    }
-
   }
 
   this.limpiaTabla = function () {
@@ -200,13 +159,6 @@ function Game() {
         document.querySelector(`.row${numFila + 1} > .col${idx}`).classList.add('tetromino')
       }
     })
-  }
-
-
-  this.ReducirEspacioDeJuego = function () {
-    for (i = 26; i > 0; i--) {
-      this.agregarFilasCompletas(document.querySelectorAll(`.row${i - 10} td`))
-    }
   }
 
   this.pintaPiezas = function () {
@@ -292,11 +244,6 @@ function Game() {
         this.checkTetromino(pieza)
       } else {
         this.fijarPiezaTablero()
-        //this.checkFilaCompleta(document.querySelector('.row25')) 
-        //this.limpiaFila(document.querySelector('.row25'))
-        //this.moverFila(document.querySelector('.row24'), 24)
-        //this.limpiaFila(document.querySelector('.row25'))
-        //this.moverFila(document.querySelector('.row24'), 24)
         this.pieces.pop()
         this.pieces.push(new Pieza())
       }
@@ -376,7 +323,6 @@ function Game() {
   this.updateGame = function () {
     this.limpiaTabla()
     this.monitorizarFilas()
-    //this.ReducirEspacioDeJuego()
     this.pintaPiezas()
     this.movePiezas()
     this.gameOver()
@@ -392,3 +338,25 @@ document.addEventListener('keydown', function (tecla) {
     game.movePiece(tecla.code)
   }
 })
+startButton.addEventListener("click", () => {
+  update();
+  startButton.style.display = "none";
+});
+
+resetButton.addEventListener("click", () => {
+  location.reload();
+});
+
+instructionsButton.addEventListener("click", () => {
+  modal.style.display = "block";
+});
+
+span.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
