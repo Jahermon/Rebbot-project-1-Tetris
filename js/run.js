@@ -8,6 +8,37 @@ const COLORES = {
   azulClaro: 'azulClaro'
 }
 
+
+const startButton = document.getElementById("start");
+const resetButton = document.getElementById("reset");
+const modal = document.getElementById("myModal");
+const instructionsButton = document.getElementById("instructions");
+const span = document.getElementsByClassName("close")[0];
+
+startButton.addEventListener("click", () => {
+  update();
+  startButton.style.display = "none";
+});
+
+resetButton.addEventListener("click", () => {
+  location.reload();
+});
+
+instructionsButton.addEventListener("click", () => {
+  modal.style.display = "block";
+});
+
+span.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+
 const TIPOS_PIEZAS = [
   {
     tipo: "O",
@@ -40,9 +71,11 @@ const TIPOS_PIEZAS = [
 ]
 
 function Pieza() {
-  this.tipo = JSON.parse(JSON.stringify(TIPOS_PIEZAS[/*Math.floor(Math.random()*7)*/0]));
+  this.tipo = JSON.parse(JSON.stringify(TIPOS_PIEZAS[0]));
 
 }
+
+Pieza.prototype.generarPiezaAleatorio
 
 Pieza.prototype.movimientoAutomatico = function () {
   this.tipo.pos.forEach(pos => {
@@ -219,9 +252,12 @@ function Game() {
         if(e.classList.contains('tetromino')){
           console.log("gameOver")
           window.clearInterval(this.timerId)
-          const divOculto = document.querySelector('.gameOver')
-          const boton = document.querySelector('.reiniciar')
-          divOculto.removeAttribute('hidden')
+          var gameOverText = document.getElementById("gameOver")
+          gameOverText.style.display = "block"
+          var closeButton = document.getElementsByClassName("close2")[0];
+          closeButton.addEventListener("click", () => {
+            gameOverText.style.display = "none";
+          });
         }
      })
     }
@@ -296,15 +332,6 @@ function Game() {
           piezaActual.abajo();
         }
         break;
-      case 'ArrowUp':
-        if (piezaActual.tipo.pos[0].y < 25
-          && piezaActual.tipo.pos[1].y < 25
-          && piezaActual.tipo.pos[2].y < 25
-          && piezaActual.tipo.pos[3].y < 25) {
-          this.pieces.pop()
-          this.pieces.push(new Pieza())
-        }
-        break;
     }
   }
 
@@ -353,6 +380,7 @@ function Game() {
     this.pintaPiezas()
     this.movePiezas()
     this.gameOver()
+
   }
 }
 const game = new Game()
@@ -360,12 +388,7 @@ game.start()
 game.gameOver()
 
 document.addEventListener('keydown', function (tecla) {
-  if (['ArrowLeft', 'ArrowDown', 'ArrowRight','ArrowUp'].includes(tecla.code)) {
+  if (['ArrowLeft', 'ArrowDown', 'ArrowRight'].includes(tecla.code)) {
     game.movePiece(tecla.code)
   }
 })
-
-
-
-
-
