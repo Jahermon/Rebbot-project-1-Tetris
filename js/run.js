@@ -8,9 +8,11 @@ const COLORES = {
   azulClaro: 'azulClaro'
 }
 var musica = new Audio ('assets/music/tetris_gameboy.mp3');
-  musica.volume = 0.2;
+  musica.volume = 0.1;
   musica.loop = true;
   musica.play();
+
+var scoreDisplay = document.querySelector('#score')
 
 const startButton = document.getElementById("start");
 const resetButton = document.getElementById("reset");
@@ -118,17 +120,20 @@ function Game() {
         }
       }
   }
-  //elimina una fila de fichas cuando está completa
+  
   this.monitorizarFilas = function () {
     for (let i = 25; i > 0; i--) {
 
       const fila = Array.from(document.querySelectorAll(`.row${i} td`))
-
+      
       const filaCompleta = fila.every(cell => {
         return cell.classList.contains('tetromino')
       })
 
       if (filaCompleta) {
+        this.score += 10
+        scoreDisplay.innerHTML = `${this.score}`
+        
         for (let j = i; j > 0; j--) {
           // Copio j-1  en j 
           for (let k = 0; k < 16; k++) {
@@ -138,6 +143,7 @@ function Game() {
               elemAbajo.classList.add('tetromino')
             } else {
               elemAbajo.classList.remove('tetromino')
+              
             }
           }
         }
