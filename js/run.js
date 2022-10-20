@@ -71,7 +71,7 @@ Pieza.prototype.abajo = function () {
       movimiento = false
       game.fijarPiezaTablero()
       game.pieces.pop()
-      game.pieces.push(new Pieza())
+      game.pieces.push(new Pieza() )
     }
     if (movimiento) {
       pos.y++
